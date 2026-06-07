@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapport d'audit — Paris Saint-Germain Football | Exercices 2024 & 2025</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #1a1a2e; background: #f5f5f0; line-height: 1.6; }
+
+  /* Cover */
+  .cover { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%); color: white; padding: 60px 70px; min-height: 220px; display: flex; align-items: center; justify-content: space-between; }
+  .cover-left h1 { font-size: 22pt; font-weight: 700; letter-spacing: -0.5px; }
+  .cover-left h2 { font-size: 13pt; font-weight: 400; color: #c9a84c; margin-top: 6px; }
+  .cover-left .meta { margin-top: 18px; font-size: 9pt; color: #aab; line-height: 1.8; }
+  .cover-badge { background: rgba(201,168,76,0.15); border: 1px solid #c9a84c; border-radius: 6px; padding: 10px 18px; text-align: center; font-size: 9pt; color: #c9a84c; white-space: nowrap; }
+  .cover-badge .big { font-size: 14pt; font-weight: 700; display: block; }
+
+  /* Layout */
+  .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+
+  /* Section headers */
+  .section { background: white; border-radius: 8px; padding: 28px 32px; margin-bottom: 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .section-title { font-size: 13pt; font-weight: 700; color: #0f3460; border-left: 4px solid #c9a84c; padding-left: 12px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .section-subtitle { font-size: 10.5pt; font-weight: 600; color: #333; margin: 18px 0 8px; }
+
+  /* Opinion box */
+  .opinion-box { border-radius: 6px; padding: 16px 20px; margin-bottom: 14px; }
+  .opinion-positive { background: #f0f9f4; border-left: 4px solid #27ae60; }
+  .opinion-warning { background: #fffbf0; border-left: 4px solid #e67e22; }
+  .opinion-negative { background: #fdf0f0; border-left: 4px solid #e74c3c; }
+  .opinion-box strong { display: block; margin-bottom: 4px; font-size: 10pt; }
+
+  /* KPI grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .kpi { background: #f8f8f4; border-radius: 6px; padding: 14px 16px; border-top: 3px solid #0f3460; }
+  .kpi.warn { border-top-color: #e67e22; }
+  .kpi.danger { border-top-color: #e74c3c; }
+  .kpi.ok { border-top-color: #27ae60; }
+  .kpi-label { font-size: 8pt; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .kpi-value { font-size: 15pt; font-weight: 700; color: #1a1a2e; }
+  .kpi-delta { font-size: 8.5pt; margin-top: 3px; }
+  .up { color: #27ae60; } .down { color: #e74c3c; } .neutral { color: #666; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 12px 0; }
+  th { background: #0f3460; color: white; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  th.right { text-align: right; }
+  td { padding: 7px 12px; border-bottom: 1px solid #eee; }
+  td.right { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:nth-child(even) td { background: #fafafa; }
+  tr.total td { font-weight: 700; background: #f0f3f9; border-top: 2px solid #0f3460; }
+  tr.subtotal td { font-weight: 600; background: #f5f7fb; font-style: italic; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 7.5pt; font-weight: 600; }
+  .tag-red { background: #fde8e8; color: #c0392b; }
+  .tag-orange { background: #fef0e0; color: #d35400; }
+  .tag-green { background: #e8f8f1; color: #1a8a4a; }
+
+  /* Risk matrix */
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .risk-item { border-radius: 6px; padding: 14px 16px; }
+  .risk-high { background: #fdf0f0; border-left: 4px solid #e74c3c; }
+  .risk-medium { background: #fffbf0; border-left: 4px solid #e67e22; }
+  .risk-low { background: #f0f9f4; border-left: 4px solid #27ae60; }
+  .risk-item .risk-title { font-weight: 700; font-size: 9.5pt; margin-bottom: 5px; }
+  .risk-item .risk-desc { font-size: 9pt; color: #444; }
+  .risk-badge { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; margin-bottom: 6px; display: inline-block; }
+  .badge-high { background: #e74c3c; color: white; }
+  .badge-medium { background: #e67e22; color: white; }
+  .badge-low { background: #27ae60; color: white; }
+
+  /* Timeline */
+  .finding { padding: 12px 16px; border-left: 3px solid #c9a84c; background: #fdfdf8; margin-bottom: 10px; border-radius: 0 6px 6px 0; }
+  .finding-title { font-weight: 700; font-size: 10pt; color: #0f3460; }
+  .finding-body { font-size: 9pt; color: #444; margin-top: 4px; }
+
+  /* Conclusion */
+  .conclusion-box { background: linear-gradient(135deg, #0f3460, #16213e); color: white; border-radius: 8px; padding: 26px 32px; }
+  .conclusion-box h3 { font-size: 14pt; color: #c9a84c; margin-bottom: 12px; }
+  .conclusion-box p { font-size: 10pt; color: #dde; line-height: 1.7; }
+  .opinion-stamp { display: inline-block; border: 2px solid #c9a84c; color: #c9a84c; padding: 6px 18px; border-radius: 4px; font-size: 10pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 14px; }
+
+  /* Footer */
+  .footer { text-align: center; font-size: 8.5pt; color: #999; margin-top: 24px; padding: 16px; }
+  p { margin-bottom: 8px; }
+  .highlight { background: #fffde7; padding: 2px 5px; border-radius: 3px; font-weight: 600; }
+  hr { border: none; border-top: 1px solid #e0e0d8; margin: 18px 0; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-left">
+    <h1>Rapport d'analyse financière</h1>
+    <h2>Paris Saint-Germain Football S.A.S.</h2>
+    <div class="meta">
+      Exercices clos le 30 juin 2024 et 30 juin 2025<br>
+      Référentiel IFRS — Comptes consolidés<br>
+      Commissaires aux comptes : PricewaterhouseCoopers Audit &amp; Ernst &amp; Young Audit<br>
+      Établi à titre de projet académique — Mai 2026
+    </div>
+  </div>
+  <div class="cover-badge">
+    <span class="big">Opinion</span>
+    Certification<br>sans réserve<br>(PwC &amp; EY)
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 1. SYNTHÈSE EXÉCUTIVE -->
+<div class="section">
+  <div class="section-title">1. Synthèse exécutive</div>
+
+  <p>Le Groupe Paris Saint-Germain Football (PSG) est un groupe sportif structuré autour de sa section de football professionnel, complété par des entités handball, judo et merchandising. Il établit ses comptes consolidés en IFRS avec un exercice clos au 30 juin.</p>
+
+  <p>Sur les deux exercices analysés (saison 2023/24 et 2024/25), le Club affiche un profil de croissance réelle du chiffre d'affaires, couplé à une réduction significative de ses pertes nettes. La dépendance structurelle envers l'actionnaire majoritaire QSI reste le risque central du modèle économique.</p>
+
+  <div class="opinion-box opinion-positive" style="margin-top:14px;">
+    <strong>🟢 Point fort majeur — Réduction de la perte nette de 50 %</strong>
+    La perte nette consolidée passe de −79,3 M€ en 2024 à −39,3 M€ en 2025. Le résultat opérationnel hors contrats joueurs repasse à l'équilibre positif (+64,6 M€ en 2025 contre −34,7 M€ en 2024). Amélioration structurelle notable.
+  </div>
+  <div class="opinion-box opinion-warning">
+    <strong>🟠 Point de vigilance — Dépendance à QSI et endettement élevé</strong>
+    Le compte courant QSI représente 259 M€ à fin juin 2025. La dette financière totale s'élève à 286 M€ (passif courant). La trésorerie disponible tombe à seulement 10 M€, soit moins de 5 jours de CA.
+  </div>
+  <div class="opinion-box opinion-negative">
+    <strong>🔴 Signal d'alerte — Déficits fiscaux cumulés de plus d'1 milliard d'euros</strong>
+    Les déficits fiscaux non activés s'élèvent à 1 019 M€ en 2024 (vs 918 M€ en 2023). Le club accumule des pertes depuis plusieurs exercices, intégralement absorbées par les injections de capital de QSI.
+  </div>
+</div>
+
+<!-- 2. KPI CLÉS -->
+<div class="section">
+  <div class="section-title">2. Indicateurs financiers clés — Comparaison N/N-1</div>
+
+  <div class="kpi-grid">
+    <div class="kpi ok">
+      <div class="kpi-label">Chiffre d'affaires</div>
+      <div class="kpi-value">785,5 M€</div>
+      <div class="kpi-delta up">▲ +7,5 % vs 2024 (730,9 M€)</div>
+    </div>
+    <div class="kpi ok">
+      <div class="kpi-label">EBE hors contrats joueurs</div>
+      <div class="kpi-value">+39,6 M€</div>
+      <div class="kpi-delta up">▲ vs −66,8 M€ en 2024</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-label">Résultat opérationnel courant</div>
+      <div class="kpi-value">−34,5 M€</div>
+      <div class="kpi-delta up">▲ Amélioration vs −71,4 M€</div>
+    </div>
+    <div class="kpi ok">
+      <div class="kpi-label">Résultat net consolidé</div>
+      <div class="kpi-value">−39,3 M€</div>
+      <div class="kpi-delta up">▲ −50 % vs −79,3 M€ en 2024</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-label">Total actif</div>
+      <div class="kpi-value">1 522,7 M€</div>
+      <div class="kpi-delta down">▼ −1,8 % vs 2024 (1 551,4 M€)</div>
+    </div>
+    <div class="kpi warn">
+      <div class="kpi-label">Capitaux propres</div>
+      <div class="kpi-value">233,4 M€</div>
+      <div class="kpi-delta up">▲ légère hausse vs 229,3 M€</div>
+    </div>
+    <div class="kpi danger">
+      <div class="kpi-label">Trésorerie nette clôture</div>
+      <div class="kpi-value">10,1 M€</div>
+      <div class="kpi-delta down">▼ −70 % vs 33,5 M€ en 2024</div>
+    </div>
+    <div class="kpi danger">
+      <div class="kpi-label">Endettement net</div>
+      <div class="kpi-value">> 275 M€</div>
+      <div class="kpi-delta down">▼ Hausse des dettes financières courantes</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. ANALYSE DU COMPTE DE RÉSULTAT -->
+<div class="section">
+  <div class="section-title">3. Analyse du compte de résultat consolidé</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Indicateur (en M€)</th>
+        <th class="right">2024/25</th>
+        <th class="right">2023/24</th>
+        <th class="right">Variation</th>
+        <th class="right">%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Chiffre d'affaires</td><td class="right">785,5</td><td class="right">730,9</td><td class="right">+54,6</td><td class="right up">+7,5 %</td></tr>
+      <tr class="subtotal"><td style="padding-left:20px">Sponsoring, partenariats &amp; hospitalités</td><td class="right">408,1</td><td class="right">439,3</td><td class="right">−31,2</td><td class="right down">−7,1 %</td></tr>
+      <tr class="subtotal"><td style="padding-left:20px">Droits audiovisuels</td><td class="right">244,5</td><td class="right">179,4</td><td class="right">+65,1</td><td class="right up">+36,3 %</td></tr>
+      <tr class="subtotal"><td style="padding-left:20px">Billetterie &amp; abonnements</td><td class="right">75,6</td><td class="right">73,2</td><td class="right">+2,4</td><td class="right up">+3,3 %</td></tr>
+      <tr><td>Charges de personnel</td><td class="right">−555,7</td><td class="right">−625,3</td><td class="right">+69,6</td><td class="right up">−11,1 %</td></tr>
+      <tr><td>Charges externes</td><td class="right">−155,1</td><td class="right">−134,7</td><td class="right">−20,4</td><td class="right down">+15,2 %</td></tr>
+      <tr class="total"><td>EBE hors contrats joueurs</td><td class="right">+39,6</td><td class="right">−66,8</td><td class="right">+106,4</td><td class="right up">N.S.</td></tr>
+      <tr><td>Résultat opérationnel hors contrats joueurs</td><td class="right">+64,6</td><td class="right">−34,7</td><td class="right">+99,3</td><td class="right up">N.S.</td></tr>
+      <tr><td>Plus-values nettes de cession de joueurs</td><td class="right">+61,2</td><td class="right">+125,6</td><td class="right">−64,4</td><td class="right down">−51,3 %</td></tr>
+      <tr><td>Amortissements contrats joueurs</td><td class="right">−160,3</td><td class="right">−162,3</td><td class="right">+2,0</td><td class="right">stable</td></tr>
+      <tr class="total"><td>Résultat opérationnel courant</td><td class="right">−34,5</td><td class="right">−71,4</td><td class="right">+36,9</td><td class="right up">−51,7 %</td></tr>
+      <tr><td>Résultat financier</td><td class="right">−7,2</td><td class="right">−5,9</td><td class="right">−1,3</td><td class="right down">+22 %</td></tr>
+      <tr class="total"><td><strong>Résultat net consolidé</strong></td><td class="right">−39,3</td><td class="right">−79,3</td><td class="right">+40,0</td><td class="right up">−50,5 %</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-subtitle">Observations analytiques</div>
+
+  <div class="finding">
+    <div class="finding-title">Retour à l'EBE positif — rupture structurelle favorable</div>
+    <div class="finding-body">L'EBE hors contrats joueurs passe de −66,8 M€ à +39,6 M€, soit une amélioration de +106 M€. Ce retournement s'explique principalement par la baisse de la masse salariale (−69,6 M€, imputable aux départs des joueurs à hauts salaires : Mbappé notamment) et la croissance des droits audiovisuels (+65 M€ grâce au format Ligue des Champions élargi). C'est un signal positif rare dans l'historique récent du club.</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">Forte dépendance aux plus-values de transferts — signal d'alerte</div>
+    <div class="finding-body">Malgré l'amélioration opérationnelle, le Club reste en perte car les plus-values de cessions de joueurs (61 M€ en 2025, contre 126 M€ en 2024) ne suffisent pas à compenser les amortissements sur contrats joueurs (160 M€). Le modèle économique du football ne permet pas encore d'atteindre la profitabilité sans transferts massifs. La baisse de 51 % des plus-values entre 2024 et 2025 illustre la volatilité de cet agrégat.</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">Hausse des charges externes (+15 %) — point de vigilance</div>
+    <div class="finding-body">Les charges externes progressent de 134,7 M€ à 155,1 M€ (+20,4 M€), portées par l'organisation des matchs en Ligue des Champions et les tournées internationales. Cette progression devra être maîtrisée pour ne pas compromettre les gains réalisés sur la masse salariale.</div>
+  </div>
+</div>
+
+<!-- 4. ANALYSE DU BILAN -->
+<div class="section">
+  <div class="section-title">4. Analyse du bilan consolidé</div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div>
+      <div class="section-subtitle">Structure de l'actif</div>
+      <table>
+        <thead><tr><th>Actif (M€)</th><th class="right">2025</th><th class="right">2024</th></tr></thead>
+        <tbody>
+          <tr><td>Contrats joueurs (net)</td><td class="right">565,6</td><td class="right">498,5</td></tr>
+          <tr><td>Immobilisations corporelles</td><td class="right">360,7</td><td class="right">356,3</td></tr>
+          <tr><td>Droits d'utilisation (IFRS 16)</td><td class="right">35,1</td><td class="right">41,7</td></tr>
+          <tr><td>Créances joueurs (LT)</td><td class="right">56,7</td><td class="right">44,1</td></tr>
+          <tr class="subtotal"><td>Total actifs non courants</td><td class="right">1 101,6</td><td class="right">1 019,7</td></tr>
+          <tr><td>Créances clients nettes</td><td class="right">232,1</td><td class="right">275,6</td></tr>
+          <tr><td>Créances joueurs (CT)</td><td class="right">91,3</td><td class="right">133,6</td></tr>
+          <tr><td><strong>Trésorerie</strong></td><td class="right"><strong>10,1</strong></td><td class="right"><strong>33,5</strong></td></tr>
+          <tr class="subtotal"><td>Total actifs courants</td><td class="right">421,2</td><td class="right">531,7</td></tr>
+          <tr class="total"><td>TOTAL ACTIF</td><td class="right">1 522,7</td><td class="right">1 551,4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="section-subtitle">Structure du passif</div>
+      <table>
+        <thead><tr><th>Passif (M€)</th><th class="right">2025</th><th class="right">2024</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Capitaux propres totaux</strong></td><td class="right"><strong>233,4</strong></td><td class="right"><strong>229,3</strong></td></tr>
+          <tr><td>Dettes joueurs (LT)</td><td class="right">213,3</td><td class="right">179,6</td></tr>
+          <tr><td>Dettes financières (LT)</td><td class="right">3,9</td><td class="right">26,3</td></tr>
+          <tr class="subtotal"><td>Total passifs non courants</td><td class="right">264,6</td><td class="right">257,6</td></tr>
+          <tr><td>Dettes financières (CT)</td><td class="right">281,9</td><td class="right">285,1</td></tr>
+          <tr><td>dont compte courant QSI</td><td class="right">259,3</td><td class="right">196,5</td></tr>
+          <tr><td>Dettes joueurs (CT)</td><td class="right">156,2</td><td class="right">173,9</td></tr>
+          <tr><td>Dettes fiscales et sociales</td><td class="right">282,4</td><td class="right">302,7</td></tr>
+          <tr class="subtotal"><td>Total passifs courants</td><td class="right">1 024,7</td><td class="right">1 064,5</td></tr>
+          <tr class="total"><td>TOTAL PASSIF</td><td class="right">1 522,7</td><td class="right">1 551,4</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-subtitle">Ratios bilanciels clés</div>
+  <table>
+    <thead><tr><th>Ratio</th><th class="right">2025</th><th class="right">2024</th><th>Interprétation</th></tr></thead>
+    <tbody>
+      <tr><td>Ratio de liquidité générale (AC/PC)</td><td class="right">0,41</td><td class="right">0,50</td><td><span class="tag tag-red">Critique</span> — Passif courant très supérieur à l'actif courant</td></tr>
+      <tr><td>Ratio capitaux propres / total actif</td><td class="right">15,3 %</td><td class="right">14,8 %</td><td><span class="tag tag-orange">Faible</span> — Solvabilité limitée, structure endettée</td></tr>
+      <tr><td>Trésorerie / CA journalier</td><td class="right">4,7 jours</td><td class="right">16,7 jours</td><td><span class="tag tag-red">Alerte</span> — Quasi-absence de coussin de liquidité</td></tr>
+      <tr><td>Dettes joueurs totales / CA</td><td class="right">46,4 %</td><td class="right">48,6 %</td><td><span class="tag tag-orange">Élevé</span> — Engagements massifs liés aux transferts</td></tr>
+      <tr><td>Contrats joueurs nets / Total actif</td><td class="right">37,1 %</td><td class="right">32,1 %</td><td><span class="tag tag-orange">Fort</span> — Actif très concentré sur les droits sportifs</td></tr>
+    </tbody>
+  </table>
+
+  <div class="finding" style="margin-top:14px;">
+    <div class="finding-title">Point clé bilan : Le compte courant QSI est la bouée de survie du Club</div>
+    <div class="finding-body">Le compte courant de QSI (actionnaire majoritaire à 91,4 %) passe de 196,5 M€ à 259,3 M€ entre 2024 et 2025. Ce montant est classé en passif financier courant, ce qui pèse mécaniquement sur le ratio de liquidité. Sans le soutien de QSI (65 M€ d'apports sur 2024/25 vs 108,6 M€ en 2023/24), la continuité d'exploitation du Club ne serait pas assurée. C'est le risque principal identifié.</div>
+  </div>
+</div>
+
+<!-- 5. ANALYSE DES FLUX DE TRÉSORERIE -->
+<div class="section">
+  <div class="section-title">5. Analyse des flux de trésorerie</div>
+
+  <table>
+    <thead><tr><th>Flux (M€)</th><th class="right">2025</th><th class="right">2024</th><th>Commentaire</th></tr></thead>
+    <tbody>
+      <tr><td>Flux d'exploitation</td><td class="right up">+121,5</td><td class="right down">−3,5</td><td>Retournement majeur — amélioration du BFR et meilleure CAF</td></tr>
+      <tr><td>Flux d'investissement</td><td class="right down">−154,8</td><td class="right down">−173,1</td><td>Acquisitions nettes de joueurs encore massives (−290 M€)</td></tr>
+      <tr><td>dont acquisitions de joueurs (net)</td><td class="right down">−290,3</td><td class="right down">−276,1</td><td>Investissements sportifs intenses</td></tr>
+      <tr><td>dont cessions de joueurs (net)</td><td class="right up">+166,5</td><td class="right up">+143,5</td><td>Recettes de transferts en hausse</td></tr>
+      <tr><td>Flux de financement</td><td class="right up">+9,9</td><td class="right up">+141,8</td><td>Nette réduction vs 2024 — moins d'emprunts nouveaux</td></tr>
+      <tr><td>dont augmentation de capital</td><td class="right">+46,1</td><td class="right">0</td><td>Injection de capitaux (nouvel investisseur)</td></tr>
+      <tr class="total"><td>Variation de trésorerie</td><td class="right down">−23,3</td><td class="right down">−34,9</td><td>Baisse moins marquée qu'en 2024</td></tr>
+    </tbody>
+  </table>
+
+  <div class="finding">
+    <div class="finding-title">Le retournement des flux d'exploitation est le signal positif de l'année</div>
+    <div class="finding-body">Le flux net d'exploitation passe de −3,5 M€ à +121,5 M€. Cette amélioration spectaculaire reflète la combinaison d'une meilleure capacité d'autofinancement (+90 M€ vs +1,3 M€) et d'un retournement du BFR favorable (+26,5 M€ vs −6 M€). Le Club commence à générer de la trésorerie opérationnelle, ce qui est une évolution structurelle positive rarement observée récemment.</div>
+  </div>
+</div>
+
+<!-- 6. MATRICE DES RISQUES -->
+<div class="section">
+  <div class="section-title">6. Identification des risques audit</div>
+
+  <div class="risk-grid">
+    <div class="risk-item risk-high">
+      <div class="risk-badge badge-high">Risque élevé</div>
+      <div class="risk-title">Dépendance à QSI — Continuité d'exploitation</div>
+      <div class="risk-desc">Le Club est structurellement déficitaire et dépend des injections de QSI pour fonctionner. Le compte courant QSI (259 M€) finance le quotidien. Toute modification de la stratégie d'investissement de QSI menacerait directement la continuité d'exploitation.</div>
+    </div>
+    <div class="risk-item risk-high">
+      <div class="risk-badge badge-high">Risque élevé</div>
+      <div class="risk-title">Trésorerie quasi-nulle — Risque de liquidité</div>
+      <div class="risk-desc">La trésorerie de clôture s'élève à seulement 10,1 M€ fin juin 2025, contre 33,5 M€ un an plus tôt. Face à un passif courant de 1 024 M€, ce niveau est extrêmement bas. Un imprévu (litige, sanction UEFA, départ soudain de QSI) pourrait créer une crise de trésorerie aiguë.</div>
+    </div>
+    <div class="risk-item risk-high">
+      <div class="risk-badge badge-high">Risque élevé</div>
+      <div class="risk-title">Valorisation des contrats joueurs — Risque d'estimations</div>
+      <div class="risk-desc">Les contrats joueurs représentent 565 M€ à l'actif (37 % du bilan). La valeur nette comptable dépend d'hypothèses de durée de contrat et d'absence de blessure grave. Un risque de dépréciation significatif existe en cas de blessure longue durée ou de refus de transfert.</div>
+    </div>
+    <div class="risk-item risk-medium">
+      <div class="risk-badge badge-medium">Risque moyen</div>
+      <div class="risk-title">Engagements hors bilan — Transferts conditionnels</div>
+      <div class="risk-desc">Les engagements hors bilan s'élèvent à 670 M€ en 2025 (vs 522 M€ en 2024), dont 443 M€ de primes et bonus joueurs conditionnels. Ces engagements peuvent se matérialiser rapidement en sorties de trésorerie si les conditions de performance sont atteintes.</div>
+    </div>
+    <div class="risk-item risk-medium">
+      <div class="risk-badge badge-medium">Risque moyen</div>
+      <div class="risk-title">Conformité FFP / Fair Play Financier UEFA</div>
+      <div class="risk-desc">Bien que le Club ait réduit ses pertes, le cumul de déficits depuis plusieurs exercices reste sous surveillance des instances sportives. Les règles UEFA sur la viabilité financière (Sustainability and Stability Regulations) imposent des seuils de pertes maximaux.</div>
+    </div>
+    <div class="risk-item risk-low">
+      <div class="risk-badge badge-low">Risque modéré</div>
+      <div class="risk-title">Litiges et provisions — Risque résiduel</div>
+      <div class="risk-desc">Les provisions pour litiges s'élèvent à 4,1 M€ et concernent essentiellement d'anciens salariés. Les CAC et la Direction confirment l'absence de risque significatif non provisionné à la date d'arrêté des comptes.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. POINTS COMPTABLES NOTABLES -->
+<div class="section">
+  <div class="section-title">7. Points comptables spécifiques au secteur footballistique</div>
+
+  <div class="section-subtitle">Traitement IFRS des contrats joueurs</div>
+  <p>Les indemnités de mutation sont comptabilisées en immobilisations incorporelles (IAS 38) et amorties linéairement sur la durée du contrat (3 à 5 ans). Les plus-values de cessions sont reconnues à la date d'homologation de la mutation. Ce traitement crée un décalage temporel systématique entre les flux de trésorerie (paiement échelonné) et les produits/charges comptables, qu'il est important de maîtriser pour interpréter correctement les états financiers.</p>
+
+  <div class="section-subtitle">Créances et dettes sur contrats joueurs</div>
+  <table>
+    <thead><tr><th>Poste (M€)</th><th class="right">2025</th><th class="right">2024</th><th>Analyse</th></tr></thead>
+    <tbody>
+      <tr><td>Créances joueurs totales</td><td class="right">148,0</td><td class="right">177,7</td><td>Montants à recevoir des clubs acheteurs — baisse liée au recouvrement 2024</td></tr>
+      <tr><td>Dettes joueurs totales</td><td class="right">369,5</td><td class="right">353,5</td><td>Montants restant à verser aux clubs cédants — en hausse</td></tr>
+      <tr class="total"><td>Position nette</td><td class="right down">−221,5</td><td class="right down">−175,8</td><td><span class="tag tag-red">Position débitrice nette croissante</span></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:8px;">La position nette débitrice sur contrats joueurs se creuse (−221,5 M€ vs −175,8 M€), reflétant une politique de recrutement ambitieuse non encore compensée par les cessions. Ce poste est structurellement une sortie nette de trésorerie future.</p>
+
+  <div class="section-subtitle">Reconnaissance du produit CVC / LFP</div>
+  <p>En 2023/24, le Club a reconnu un produit exceptionnel de 66,5 M€ au titre de l'investissement du fonds CVC dans la LFP. Ce produit, classé en "autres produits opérationnels courants", a masqué partiellement la dégradation opérationnelle de l'exercice 2024. Son absence en 2025 rend la comparaison difficile sur ce poste, mais le résultat opérationnel 2025 est en réalité meilleur hors effet CVC.</p>
+</div>
+
+<!-- 8. CONCLUSION -->
+<div class="section">
+  <div class="section-title">8. Conclusion — Opinion analytique simulée</div>
+
+  <div class="conclusion-box">
+    <h3>Opinion d'audit (simulée)</h3>
+    <p>Sur la base de l'analyse des comptes consolidés du Groupe Paris Saint-Germain Football pour les exercices clos au 30 juin 2024 et 30 juin 2025, établis selon le référentiel IFRS :</p>
+    <br>
+    <p><strong style="color:#c9a84c;">En termes de fiabilité des comptes</strong> — Les comptes ont été certifiés sans réserve par PricewaterhouseCoopers Audit et Ernst &amp; Young Audit, deux cabinets de premier rang. Les principes comptables appliqués sont conformes au référentiel IFRS et cohérents d'un exercice à l'autre. Aucun changement de méthode significatif n'a été identifié.</p>
+    <br>
+    <p><strong style="color:#c9a84c;">En termes de situation financière</strong> — Le Club présente une amélioration significative de ses indicateurs opérationnels sur l'exercice 2024/25. Le retour à l'EBE positif et la réduction de moitié de la perte nette constituent des signaux positifs réels. Néanmoins, la structure financière reste fragile : trésorerie quasi-nulle, passif courant très élevé et dépendance structurelle envers QSI. La pérennité du modèle repose entièrement sur le soutien indéfectible de l'actionnaire majoritaire.</p>
+    <br>
+    <p><strong style="color:#c9a84c;">Finding principal</strong> — Le principal risque identifié est la concentration du financement sur un actionnaire unique (QSI), dont les apports ont diminué de 108,6 M€ en 2024 à 65 M€ en 2025. Si cette trajectoire de réduction se poursuit sans amélioration correspondante de la génération de trésorerie opérationnelle, le Club devra soit céder des actifs sportifs importants, soit rechercher de nouveaux investisseurs. L'arrivée d'Arctos Partners (2,5 %) et d'ASP (0,93 %) va dans ce sens, mais reste insuffisante.</p>
+    <div class="opinion-stamp">Certifié sans réserve — Simulation académique</div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Rapport établi à des fins académiques dans le cadre d'un projet de candidature en audit financier — Données sources : comptes consolidés IFRS du Groupe PSG, exercices 2023/24 et 2024/25 — Mai 2026
+</div>
+
+</body>
+</html>
